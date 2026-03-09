@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+shapely
+python-dotenv
+alembic
+scikit-learn
+openai
+httpx
+python-multipart
