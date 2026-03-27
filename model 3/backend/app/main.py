@@ -204,7 +204,7 @@ async def create_citizen_report(
             db_report.category
         )
     
-    return db_report
+    return db_report.to_dict()
 
 
 @app.get("/api/my-reports", response_model=List[CitizenReportResponse], tags=["Intake"])
@@ -217,7 +217,7 @@ async def get_my_reports(
         ticket_models.CitizenReport.citizen_id == citizen_id
     ).order_by(ticket_models.CitizenReport.created_at.desc()).all()
     
-    return reports
+    return [r.to_dict() for r in reports]
 
 
 def _urgency_to_priority(urgency_score: float) -> ticket_models.TicketPriority:
@@ -306,7 +306,7 @@ async def list_tickets(
     
     db.commit()
     
-    return tickets
+    return [t.to_dict() for t in tickets]
 
 
 @app.get("/api/tickets/{ticket_id}", response_model=MasterTicketResponse, tags=["Tickets"])
@@ -325,7 +325,7 @@ async def get_ticket(
     ticket.check_sla_breach()
     db.commit()
     
-    return ticket
+    return ticket.to_dict()
 
 
 @app.patch("/api/tickets/{ticket_id}", response_model=MasterTicketResponse, tags=["Tickets"])
@@ -388,7 +388,7 @@ async def update_ticket(
     db.commit()
     db.refresh(ticket)
     
-    return ticket
+    return ticket.to_dict()
 
 
 @app.post("/api/tickets/{ticket_id}/resolve", response_model=ResolveTicketResponse, tags=["Tickets"])

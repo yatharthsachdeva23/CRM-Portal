@@ -87,6 +87,7 @@ class CitizenReport(Base):
         return {
             "id": self.id,
             "citizen_id": self.citizen_id,
+            "citizen_name": self.citizen_name,
             "description": self.description,
             "category": self.category.value if self.category else None,
             "confidence_score": self.confidence_score,
