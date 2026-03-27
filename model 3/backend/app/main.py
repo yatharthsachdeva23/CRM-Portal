@@ -20,6 +20,7 @@ from app.models.schemas import (
     DashboardStats, KanbanBoard, KanbanColumn,
     MapMarker, HeatmapPoint,
     DepartmentLeaderboardEntry, LeaderboardResponse,
+    CitizenLeaderboardEntry, CitizenLeaderboardResponse,
     RedZoneResponse,
     ClassificationResult, SpatialClusterResult,
     StatusEnum,
@@ -206,6 +207,19 @@ async def create_citizen_report(
     return db_report
 
 
+@app.get("/api/my-reports", response_model=List[CitizenReportResponse], tags=["Intake"])
+async def get_my_reports(
+    citizen_id: str,
+    db: Session = Depends(get_db)
+):
+    """Get all reports submitted by a specific citizen."""
+    reports = db.query(ticket_models.CitizenReport).filter(
+        ticket_models.CitizenReport.citizen_id == citizen_id
+    ).order_by(ticket_models.CitizenReport.created_at.desc()).all()
+    
+    return reports
+
+
 def _urgency_to_priority(urgency_score: float) -> ticket_models.TicketPriority:
     """Convert urgency score to priority level."""
     if urgency_score >= 8:
@@ -230,21 +244,18 @@ async def transcribe_voice(
     db: Session = Depends(get_db)
 ):
     """
-    Transcribe voice recording to text.
-    
-    Simulates voice-to-text conversion with entity extraction.
-    In production, this would integrate with Bhashini or similar services.
+    Transcribe voice recording to text with regional support and formal translation.
     """
-    # Simulated transcription
-    # In production: integrate with actual STT service
+    result = nlp_classifier.transcribe_voice(request.audio_url, request.language)
     
     return VoiceToTextResponse(
-        transcript="Simulated voice transcription from audio",
-        confidence=0.85,
-        language=request.language,
+        transcript=result["transcript"],
+        confidence=result["confidence"],
+        language=result["language_detected"],
         extracted_entities={
-            "location_hints": ["near main road"],
-            "issue_type": "electricity"
+            "original_transcript": result["original_transcript"],
+            "formalized": result["formalized"],
+            "location_hints": ["detected from audio"],
         }
     )
 
@@ -408,6 +419,19 @@ async def resolve_ticket(
             detail="No before image available for comparison"
         )
     
+    # Step 1: Geo-fencing check (Worker must be within 100m of the ticket location)
+    from app.services.spatial_service import spatial_service
+    distance = spatial_service.haversine_distance(
+        ticket.latitude, ticket.longitude,
+        request.latitude, request.longitude
+    )
+    
+    if distance > 100:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Verification failed: Worker is {round(distance)}m away from the ticket location. You must be on-site (within 100m) to resolve."
+        )
+
     # Perform image similarity check
     similarity_result = await image_checker.check_similarity(
         ticket.before_image_url,
@@ -415,6 +439,8 @@ async def resolve_ticket(
     )
     
     ticket.after_image_url = request.after_image_url
+    ticket.resolution_lat = request.latitude
+    ticket.resolution_lon = request.longitude
     ticket.image_similarity_score = similarity_result.similarity_score
     
     if similarity_result.passed:
@@ -811,6 +837,52 @@ async def get_department_leaderboard(db: Session = Depends(get_db)):
         last_updated=datetime.now().isoformat(),
         total_tickets_today=today_count
     )
+
+
+@app.get("/api/leaderboard/citizens", response_model=CitizenLeaderboardResponse, tags=["Analytics"])
+def get_citizen_leaderboard(db: Session = Depends(get_db)):
+    """Get the public leaderboard of top contributing citizens."""
+    
+    # Simple aggregation from CitizenReports
+    from sqlalchemy import func
+    
+    reports_by_citizen = db.query(
+        ticket_models.CitizenReport.citizen_name,
+        func.count(ticket_models.CitizenReport.id).label('report_count')
+    ).filter(
+        ticket_models.CitizenReport.citizen_name.isnot(None)
+    ).group_by(
+        ticket_models.CitizenReport.citizen_name
+    ).order_by(
+        func.count(ticket_models.CitizenReport.id).desc()
+    ).limit(10).all()
+    
+    leaderboard = []
+    
+    for idx, row in enumerate(reports_by_citizen):
+        score = row.report_count * 10
+        
+        if score >= 300:
+            badge = "Diamond"
+        elif score >= 150:
+            badge = "Gold"
+        elif score >= 50:
+            badge = "Silver"
+        else:
+            badge = "Bronze"
+            
+        leaderboard.append({
+            "rank": idx + 1,
+            "citizen_name": row.citizen_name,
+            "reports_submitted": row.report_count,
+            "total_score": score,
+            "badge": badge
+        })
+        
+    return {
+        "citizens": leaderboard,
+        "last_updated": datetime.now().isoformat()
+    }
 
 
 # ==================== UTILITY ENDPOINTS ====================

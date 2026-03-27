@@ -67,8 +67,15 @@ def seed_data():
         # Delhi Coordinates (Connaught Place area)
         lat_base, lon_base = 28.6328, 77.2197
         
-        sources = ["CRM Website", "Instagram", "Facebook", "WhatsApp"]
+        sources = ["CRM Website", "Instagram", "Facebook", "Voice"]
         
+        # Delhi Power Users for the leaderboard
+        power_users = [
+            "Aarav Sharma", "Priya Patel", "Vikram Singh", 
+            "Sneha Gupta", "Rahul Verma", "Kavita Reddy", 
+            "Amit Kumar", "Neha Desai", "Rajiv Malhotra", "Anjali Tiwari"
+        ]
+
         descriptions = {
             TicketCategory.ELECTRICITY: [
                 "Transformer spark near Rajiv Chowk Metro",
@@ -100,8 +107,8 @@ def seed_data():
             ]
         }
 
-        # Create 10 Clustered Issues (MasterTickets)
-        for i in range(10):
+        # Create 15 Clustered Issues (MasterTickets)
+        for i in range(15):
             cat = random.choice(list(TicketCategory))
             desc = random.choice(descriptions[cat])
             
@@ -121,7 +128,7 @@ def seed_data():
                 status=status,
                 priority=priority,
                 urgency_score=round(random.uniform(7.0, 9.8), 1),
-                report_count=random.randint(5, 12) # Highly clustered
+                report_count=random.randint(5, 25) # Highly clustered
             )
             
             # Assign dept and worker
@@ -133,16 +140,22 @@ def seed_data():
             db.add(mt)
             db.flush()
             
-            # Create MANY CitizenReports for this cluster
+            # Create MANY CitizenReports for this cluster, distributing them heavily to power users
             for j in range(mt.report_count):
                 source = random.choice(sources)
+                # 70% chance to be reported by a power user
+                if random.random() < 0.7:
+                    citizen = random.choice(power_users[:5]) if random.random() < 0.5 else random.choice(power_users)
+                else:
+                    citizen = f"Delhi Resident {random.randint(1, 1000)}"
+                    
                 cr = CitizenReport(
                     description=f"[{source}] {desc} (Report #{j+1})",
                     latitude=lat + random.uniform(-0.0005, 0.0005),
                     longitude=lon + random.uniform(-0.0005, 0.0005),
                     category=cat,
                     master_ticket_id=mt.id,
-                    citizen_name=f"Delhi User {random.randint(1, 1000)}",
+                    citizen_name=citizen,
                     source=source
                 )
                 db.add(cr)

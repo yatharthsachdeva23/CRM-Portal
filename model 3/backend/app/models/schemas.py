@@ -133,6 +133,8 @@ class ResolveTicketRequest(BaseModel):
     after_image_url: str = Field(..., description="URL to 'after' resolution image")
     resolution_notes: Optional[str] = Field(None, description="Notes about the resolution")
     worker_id: str = Field(..., description="ID of resolving worker")
+    latitude: float = Field(..., description="Worker's GPS latitude at resolution")
+    longitude: float = Field(..., description="Worker's GPS longitude at resolution")
 
 
 class ResolveTicketResponse(BaseModel):
@@ -217,6 +219,21 @@ class LeaderboardResponse(BaseModel):
     departments: List[DepartmentLeaderboardEntry]
     last_updated: str
     total_tickets_today: int
+
+
+class CitizenLeaderboardEntry(BaseModel):
+    """Schema for a citizen's ranking on the leaderboard."""
+    rank: int
+    citizen_name: str
+    reports_submitted: int
+    total_score: int
+    badge: str
+
+
+class CitizenLeaderboardResponse(BaseModel):
+    """Schema for the citizen leaderboard."""
+    citizens: List[CitizenLeaderboardEntry]
+    last_updated: str
 
 
 # ==================== RED ZONE SCHEMAS ====================

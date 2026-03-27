@@ -140,6 +140,7 @@ class MasterTicket(Base):
     resolution_lat = Column(Float, nullable=True)
     resolution_lon = Column(Float, nullable=True)
     resolution_photo_url = Column(String(500), nullable=True)
+    source = Column(String(50), default="web")  # Primary source of the ticket
     
     # Timestamps
     created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -237,7 +238,8 @@ class MasterTicket(Base):
             "upvote_count": self.upvote_count,
             "before_image_url": self.before_image_url,
             "after_image_url": self.after_image_url,
-            "verification_status": self.verification_status
+            "verification_status": self.verification_status,
+            "source": self.source
         }
 
 

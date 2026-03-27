@@ -45,6 +45,7 @@ export interface Ticket {
   after_image_url?: string;
   verification_status: 'pending' | 'passed' | 'failed';
   image_similarity_score?: number;
+  source: string;
   assigned_at?: string;
   started_at?: string;
   resolved_at?: string;
@@ -139,6 +140,19 @@ export interface LeaderboardEntry {
   efficiency_score: number;
   trust_badge_count: number;
   trend: 'up' | 'down' | 'stable';
+}
+
+export interface CitizenLeaderboardEntry {
+  rank: number;
+  citizen_name: string;
+  reports_submitted: number;
+  total_score: number;
+  badge: "Bronze" | "Silver" | "Gold" | "Diamond";
+}
+
+export interface CitizenLeaderboardResponse {
+  citizens: CitizenLeaderboardEntry[];
+  last_updated: string;
 }
 
 export interface LeaderboardResponse {

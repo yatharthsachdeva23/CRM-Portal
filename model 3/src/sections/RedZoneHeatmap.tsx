@@ -321,37 +321,28 @@ export default function RedZoneHeatmap() {
                           </div>
                           
                           {zone.predicted_failure_at && (
-                            <div className="flex justify-between text-red-600 font-bold bg-red-50 p-1 rounded">
-                              <span>Predicted Failure:</span>
-                              <span>{format(new Date(zone.predicted_failure_at), 'MMM dd, yyyy')}</span>
-                            </div>
-                          )}
-                          
-                          {zone.proactive_maintenance_deadline && (
-                            <div className="flex justify-between text-orange-600 font-bold bg-orange-50 p-1 rounded border border-orange-200">
-                              <span>Maintenance By:</span>
-                              <span>{format(new Date(zone.proactive_maintenance_deadline), 'MMM dd, yyyy')}</span>
-                            </div>
-                          )}
-                          
-                          {zone.asset_type && (
-                            <div className="flex justify-between">
-                              <span className="text-slate-500">Asset Type:</span>
-                              <span className="font-medium">{zone.asset_type}</span>
-                            </div>
-                          )}
-                          
-                          {zone.improvement_suggestion ? (
-                            <div className="mt-3 p-2 bg-blue-50 border border-blue-100 rounded text-xs">
-                              <p className="font-bold text-blue-700 mb-1 flex items-center gap-1">
-                                <Zap className="w-3 h-3" /> Proactive Suggestion:
+                            <div className="mt-3 p-2 bg-red-600/10 border border-red-500/50 rounded-lg animate-pulse">
+                              <p className="text-[10px] font-bold text-red-500 flex items-center gap-1 uppercase">
+                                <AlertTriangle className="w-3 h-3" /> Predictive Failure Alert
                               </p>
-                              <p className="text-blue-600 italic">{zone.improvement_suggestion}</p>
+                              <p className="text-xs text-red-400 mt-1">
+                                Asset degradation detected. Projected failure: 
+                                <span className="font-bold ml-1">{format(new Date(zone.predicted_failure_at), 'MMM yyyy')}</span>
+                              </p>
+                            </div>
+                          )}
+
+                          {zone.improvement_suggestion ? (
+                            <div className="mt-3 p-2 bg-blue-500/10 border border-blue-500/30 rounded text-xs">
+                              <p className="font-bold text-blue-400 mb-1 flex items-center gap-1">
+                                <Zap className="w-3 h-3" /> Proactive Plan:
+                              </p>
+                              <p className="text-blue-300 italic">{zone.improvement_suggestion}</p>
                             </div>
                           ) : zone.recommended_action && (
-                            <div className="mt-3 p-2 bg-slate-100 rounded text-xs">
-                              <p className="font-medium text-slate-700 mb-1">Recommended Action:</p>
-                              <p className="text-slate-600">{zone.recommended_action}</p>
+                            <div className="mt-3 p-2 bg-slate-800 rounded text-xs">
+                              <p className="font-medium text-slate-400 mb-1">Recommended Action:</p>
+                              <p className="text-slate-300">{zone.recommended_action}</p>
                             </div>
                           )}
                         </div>

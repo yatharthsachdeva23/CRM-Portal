@@ -81,6 +81,7 @@ export const api = {
     latitude: number;
     longitude: number;
     address_text?: string;
+    citizen_id?: string;
     citizen_phone?: string;
     citizen_name?: string;
     image_url?: string;
@@ -90,8 +91,8 @@ export const api = {
     return response.data;
   },
 
-  getMyReports: async (): Promise<CitizenReport[]> => {
-    const response = await axiosInstance.get('/api/my-reports');
+  getMyReports: async (citizen_id: string): Promise<CitizenReport[]> => {
+    const response = await axiosInstance.get('/api/my-reports', { params: { citizen_id } });
     return response.data;
   },
 
@@ -143,15 +144,14 @@ export const api = {
     return response.data;
   },
 
-  resolveTicket: async (
-    id: number,
-    data: {
-      after_image_url: string;
-      resolution_notes?: string;
-      worker_id: string;
-    }
-  ): Promise<ResolveTicketResponse> => {
-    const response = await axiosInstance.post(`/api/tickets/${id}/resolve`, data);
+  resolveTicket: async (ticketId: number, data: {
+    after_image_url: string;
+    resolution_notes?: string;
+    worker_id: string;
+    latitude: number;
+    longitude: number;
+  }): Promise<ResolveTicketResponse> => {
+    const response = await axiosInstance.post(`/api/tickets/${ticketId}/resolve`, data);
     return response.data;
   },
 
@@ -208,8 +208,13 @@ export const api = {
 
   // ==================== LEADERBOARD ====================
   
-  getLeaderboard: async (): Promise<LeaderboardResponse> => {
-    const response = await axiosInstance.get('/api/leaderboard');
+  getDepartmentLeaderboard: async (): Promise<LeaderboardResponse> => {
+    const response = await axiosInstance.get('/api/leaderboard/departments');
+    return response.data;
+  },
+
+  getCitizenLeaderboard: async (): Promise<CitizenLeaderboardResponse> => {
+    const response = await axiosInstance.get('/api/leaderboard/citizens');
     return response.data;
   },
 

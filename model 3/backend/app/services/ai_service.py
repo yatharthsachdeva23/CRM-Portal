@@ -165,7 +165,40 @@ class NLPClassifier:
             keywords_detected=detected_keywords[:5],
             urgency_indicators=urgency_indicators
         )
-    
+
+    def transcribe_voice(self, audio_url: str, language: str = 'en-IN') -> Dict[str, Any]:
+        """
+        Simulate regional voice-to-text with translation to formal English.
+        In production, this would use a service like Bhashini or Azure Speech.
+        """
+        regional_samples = {
+            'hi-IN': {
+                'transcript': "Mere ghar ke paas bijli ka khamba gir gaya hai aur chingari nikal rahi hai.",
+                'translation': "An electric pole has fallen near my house and is sparking."
+            },
+            'mr-IN': {
+                'transcript': "रस्त्यावर मोठा खड्डा पडला आहे, अपघात होऊ शकतो.",
+                'translation': "There is a large pothole on the road, an accident might occur."
+            },
+            'ta-IN': {
+                'transcript': "தண்ணீர் குழாய் உடைந்து தண்ணீர் வீணாகிறது.",
+                'translation': "The water pipe is broken and water is being wasted."
+            }
+        }
+        
+        sample = regional_samples.get(language, {
+            'transcript': "Regional audio transcript sample",
+            'translation': "Formal English translation of the regional complaint"
+        })
+        
+        return {
+            "original_transcript": sample['transcript'],
+            "transcript": sample['translation'],
+            "confidence": 0.92,
+            "language_detected": language,
+            "formalized": True
+        }
+
     def calculate_urgency_score(
         self,
         text: str,

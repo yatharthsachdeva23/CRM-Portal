@@ -11,7 +11,11 @@ import {
   Clock, 
   AlertTriangle, 
   CheckCircle2, 
-  RefreshCw
+  RefreshCw,
+  MessageSquare,
+  Facebook,
+  Instagram,
+  Phone
 } from 'lucide-react';
 import type { KanbanColumn, Ticket } from '@/types';
 import { api } from '@/lib/api';
@@ -139,6 +143,21 @@ function TicketCard({
     }
   };
 
+  const getSourceIcon = (source: string) => {
+    switch (source?.toLowerCase()) {
+      case 'whatsapp':
+        return <MessageSquare className="w-3 h-3 text-green-500" />;
+      case 'facebook':
+        return <Facebook className="w-3 h-3 text-blue-500" />;
+      case 'instagram':
+        return <Instagram className="w-3 h-3 text-pink-500" />;
+      case 'voice':
+        return <Phone className="w-3 h-3 text-purple-500" />;
+      default:
+        return <RefreshCw className="w-3 h-3 text-slate-500" />;
+    }
+  };
+
   const getUrgencyDots = (score: number) => {
     const dots = [];
     const filledDots = Math.ceil(score / 2);
@@ -173,7 +192,10 @@ function TicketCard({
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-2">
-        <span className="text-xs font-mono text-slate-500">{ticket.ticket_number}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono text-slate-500">{ticket.ticket_number}</span>
+          {getSourceIcon(ticket.source)}
+        </div>
         <Badge 
           variant="outline" 
           className={`text-xs ${getPriorityColor(ticket.priority)}`}
@@ -226,9 +248,13 @@ function TicketCard({
           <span>{formatDistanceToNow(new Date(ticket.created_at), { addSuffix: true })}</span>
         </div>
         
-        {ticket.assigned_department && (
-          <span className="truncate max-w-[100px]">{ticket.assigned_department}</span>
-        )}
+        <div className="flex flex-col items-end gap-1">
+          {ticket.assigned_department && (
+            <Badge variant="outline" className="text-[10px] py-0 px-1 border-slate-700 text-slate-400">
+              {ticket.assigned_department}
+            </Badge>
+          )}
+        </div>
       </div>
 
       {/* Verification Status */}
