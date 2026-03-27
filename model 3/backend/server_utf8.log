@@ -1,0 +1,1584 @@
+﻿python : INFO:     Started 
+server process [7752]
+At line:1 char:32
++ ... THONUTF8=1; python 
+-m uvicorn app.main:app 
+--port 8000 --host 127.0.0 
+...
++                 ~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (INF  
+  O:     Started server    
+ process [7752]:String)    
+ [], RemoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+INFO:     Waiting for 
+application startup.
+ΓÜá∩╕Å  NLP libraries (sentence-transformers, sklearn) not found. Semantic classification will be disabled.
+ΓÜá∩╕Å  Falling back to keyword-based classification (libraries missing)
+2026-03-26 00:39:41,752 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,754 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("citizen_reports")
+2026-03-26 00:39:41,754 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,755 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("master_tickets")
+2026-03-26 00:39:41,755 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,756 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("ticket_status_history")
+2026-03-26 00:39:41,756 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,756 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("departments")
+2026-03-26 00:39:41,756 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,756 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("workers")
+2026-03-26 00:39:41,756 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,757 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("red_zones")
+2026-03-26 00:39:41,757 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,757 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("citizen_trust_scores")
+2026-03-26 00:39:41,757 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-26 00:39:41,758 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     Application 
+startup complete.
+INFO:     Uvicorn running 
+on http://127.0.0.1:8000 
+(Press CTRL+C to quit)
+≡ƒÜÇ Smart PS-CRM v1.0.0 started
+≡ƒôè Database: sqlite:///./smart_ps_crm.db
+≡ƒñû AI Model: all-MiniLM-L6-v2
+≡ƒôì Cluster Radius: 30.0m
+DEBUG: classification.category = 'Sanitation'
+2026-03-26 00:39:41,824 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,827 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:41,827 INFO sqlalchemy.engine.Engine [generated in 0.00030s] (None, '9999999999', 'Test Citizen', 'Garbage pileup behind the market', None, 'web', 'SANITATION', 0.333, 0.5, 28.7021, 77.1045, 'Simulated Location', None, None, None)
+2026-03-26 00:39:41,829 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:41,837 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,841 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:41,841 INFO sqlalchemy.engine.Engine [generated in 0.00039s] (17,)
+2026-03-26 00:39:41,848 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:41,848 INFO sqlalchemy.engine.Engine [generated in 0.00062s] ('SANITATION', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:41,852 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:41,852 INFO sqlalchemy.engine.Engine [generated in 0.00039s] (3,)
+2026-03-26 00:39:41,856 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET latitude=?, urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:41,856 INFO sqlalchemy.engine.Engine [generated in 0.00031s] (28.702100000000005, 7.0, 5, 4, 3)
+2026-03-26 00:39:41,859 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:41,859 INFO sqlalchemy.engine.Engine [generated in 0.00033s] (3, 17)
+2026-03-26 00:39:41,860 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:41,866 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,868 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.id = ?
+2026-03-26 00:39:41,868 INFO sqlalchemy.engine.Engine [generated in 0.00032s] (3,)
+2026-03-26 00:39:41,871 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:41,871 INFO sqlalchemy.engine.Engine [generated in 0.00045s] (17,)
+2026-03-26 00:39:41,873 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3925 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 41), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+DEBUG: classification.category = 'Electricity'
+2026-03-26 00:39:41,932 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,933 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:41,933 INFO sqlalchemy.engine.Engine [cached since 0.1065s ago] (None, '9999999999', 'Test Citizen', 'Street light not working for 3 days', None, 'web', 'ELECTRICITY', 0.667, 0.5, 28.7071, 77.10350000000001, 'Simulated Location', None, None, None)
+2026-03-26 00:39:41,935 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:41,938 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,940 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:41,940 INFO sqlalchemy.engine.Engine [cached since 0.09868s ago] (18,)
+2026-03-26 00:39:41,942 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:41,942 INFO sqlalchemy.engine.Engine [cached since 0.09423s ago] ('ELECTRICITY', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:41,943 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:41,943 INFO sqlalchemy.engine.Engine [cached since 0.09102s ago] (4,)
+2026-03-26 00:39:41,944 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:41,944 INFO sqlalchemy.engine.Engine [generated in 0.00023s] (7.0, 5, 4, 4)
+2026-03-26 00:39:41,946 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:41,946 INFO sqlalchemy.engine.Engine [cached since 0.08781s ago] (4, 18)
+2026-03-26 00:39:41,946 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:41,951 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:41,951 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.id = ?
+2026-03-26 00:39:41,951 INFO sqlalchemy.engine.Engine [cached since 0.08448s ago] (4,)
+2026-03-26 00:39:41,952 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:41,952 INFO sqlalchemy.engine.Engine [cached since 0.08241s ago] (18,)
+2026-03-26 00:39:41,953 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3929 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 41), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+DEBUG: classification.category = 'Roads'
+2026-03-26 00:39:45,373 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,373 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:45,373 INFO sqlalchemy.engine.Engine [cached since 3.546s ago] (None, '9999999999', 'Test Citizen', 'Huge pothole near the park', None, 'web', 'ROADS', 0.333, 0.5, 28.7051, 77.10350000000001, 'Simulated Location', None, None, None)
+2026-03-26 00:39:45,375 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,379 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,379 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,379 INFO sqlalchemy.engine.Engine [cached since 3.538s ago] (19,)
+2026-03-26 00:39:45,382 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:45,382 INFO sqlalchemy.engine.Engine [cached since 3.534s ago] ('ROADS', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:45,383 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:45,383 INFO sqlalchemy.engine.Engine [cached since 3.531s ago] (1,)
+2026-03-26 00:39:45,385 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:45,385 INFO sqlalchemy.engine.Engine [cached since 3.44s ago] (7.0, 5, 4, 1)
+2026-03-26 00:39:45,391 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,391 INFO sqlalchemy.engine.Engine [cached since 3.534s ago] (1, 19)
+2026-03-26 00:39:45,392 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,403 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,403 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.id = ?
+2026-03-26 00:39:45,403 INFO sqlalchemy.engine.Engine [cached since 3.536s ago] (1,)
+2026-03-26 00:39:45,405 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,405 INFO sqlalchemy.engine.Engine [cached since 3.534s ago] (19,)
+2026-03-26 00:39:45,406 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3930 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 45), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+DEBUG: classification.category = 'Roads'
+2026-03-26 00:39:45,462 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,462 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:45,463 INFO sqlalchemy.engine.Engine [cached since 3.636s ago] (None, '9999999999', 'Test Citizen', 'Dangerous dip in the road', None, 'web', 'ROADS', 0.333, 0.5, 28.7052, 77.1036, 'Simulated Location', None, None, None)
+2026-03-26 00:39:45,466 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,471 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,472 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,472 INFO sqlalchemy.engine.Engine [cached since 3.631s ago] (20,)
+2026-03-26 00:39:45,473 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:45,474 INFO sqlalchemy.engine.Engine [cached since 3.626s ago] ('ROADS', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:45,475 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:45,475 INFO sqlalchemy.engine.Engine [cached since 3.623s ago] (1,)
+2026-03-26 00:39:45,530 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET latitude=?, urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:45,531 INFO sqlalchemy.engine.Engine [cached since 3.675s ago] (28.705099999999998, 7.5, 6, 5, 1)
+2026-03-26 00:39:45,533 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,533 INFO sqlalchemy.engine.Engine [cached since 3.675s ago] (1, 20)
+2026-03-26 00:39:45,534 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,539 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,539 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.id = ?
+2026-03-26 00:39:45,539 INFO sqlalchemy.engine.Engine [cached since 3.672s ago] (1,)
+2026-03-26 00:39:45,541 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,541 INFO sqlalchemy.engine.Engine [cached since 3.67s ago] (20,)
+2026-03-26 00:39:45,541 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3931 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 45), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+DEBUG: classification.category = 'Roads'
+2026-03-26 00:39:45,583 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,585 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:45,585 INFO sqlalchemy.engine.Engine [cached since 3.758s ago] (None, '9999999999', 'Test Citizen', 'Road damage is causing accidents', None, 'web', 'ROADS', 0.667, 0.5, 28.705000000000002, 77.10340000000001, 'Simulated Location', None, None, None)
+2026-03-26 00:39:45,587 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,592 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,592 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,592 INFO sqlalchemy.engine.Engine [cached since 3.751s ago] (21,)
+2026-03-26 00:39:45,594 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:45,594 INFO sqlalchemy.engine.Engine [cached since 3.747s ago] ('ROADS', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:45,595 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:45,595 INFO sqlalchemy.engine.Engine [cached since 3.743s ago] (1,)
+2026-03-26 00:39:45,597 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET latitude=?, longitude=?, urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:45,597 INFO sqlalchemy.engine.Engine [generated in 0.00033s] (28.705116666671774, 77.1035166666534, 8.0, 7, 6, 1)
+2026-03-26 00:39:45,599 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,599 INFO sqlalchemy.engine.Engine [cached since 3.741s ago] (1, 21)
+2026-03-26 00:39:45,599 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,604 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,604 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.id = ?
+2026-03-26 00:39:45,604 INFO sqlalchemy.engine.Engine [cached since 3.738s ago] (1,)
+2026-03-26 00:39:45,606 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,606 INFO sqlalchemy.engine.Engine [cached since 3.736s ago] (21,)
+2026-03-26 00:39:45,607 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3932 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+DEBUG: classification.category = 'Electricity'
+2026-03-26 00:39:45,651 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,652 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:45,652 INFO sqlalchemy.engine.Engine [cached since 3.825s ago] (None, '9999999999', 'Test Citizen', 'SPARKING TRANSFORMER! DANGEROUS!', None, 'web', 'ELECTRICITY', 1.0, 0.5, 28.7031, 77.1015, 'Simulated Location', None, None, None)
+2026-03-26 00:39:45,655 INFO sqlalchemy.engine.Engine COMMIT
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+2026-03-26 00:39:45,660 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,660 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,660 INFO sqlalchemy.engine.Engine [cached since 3.819s ago] (22,)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 45), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+2026-03-26 00:39:45,662 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:45,662 INFO sqlalchemy.engine.Engine [cached since 3.814s ago] ('ELECTRICITY', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:45,666 INFO sqlalchemy.engine.Engine SELECT departments.id AS departments_id, departments.name AS departments_name, departments.code AS departments_code, departments.category AS departments_category, departments.total_tickets_resolved AS departments_total_tickets_resolved, departments.avg_resolution_time_hours AS departments_avg_resolution_time_hours, departments.satisfaction_score AS departments_satisfaction_score, departments.efficiency_score AS departments_efficiency_score, departments.trust_badge_count AS departments_trust_badge_count 
+FROM departments 
+WHERE departments.category = ?
+ LIMIT ? OFFSET ?
+2026-03-26 00:39:45,666 INFO sqlalchemy.engine.Engine [generated in 0.00037s] ('ELECTRICITY', 1, 0)
+2026-03-26 00:39:45,672 INFO sqlalchemy.engine.Engine INSERT INTO master_tickets (ticket_number, category, sub_category, description, latitude, longitude, cluster_radius, status, priority, urgency_score, sla_hours, sla_deadline, sla_breached, assigned_department_id, assigned_worker_id, assigned_at, started_at, resolved_at, verified_at, closed_at, before_image_url, after_image_url, image_similarity_score, verification_status, report_count, upvote_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:45,672 INFO sqlalchemy.engine.Engine [generated in 0.00050s] ('CRM-20260326-7354', 'ELECTRICITY', None, 'SPARKING TRANSFORMER! DANGEROUS!', 28.7031, 77.1015, 30.0, 'REPORTED', 'CRITICAL', 10.0, 12, '2026-03-26 12:39:45.663248', 0, 1, None, None, None, None, None, None, None, None, None, 'pending', 1, 0)
+ERROR:    Exception in 
+ASGI application
+2026-03-26 00:39:45,676 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,681 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+2026-03-26 00:39:45,683 INFO sqlalchemy.engine.Engine SELECT master_tickets.id, master_tickets.ticket_number, master_tickets.category, master_tickets.sub_category, master_tickets.description, master_tickets.latitude, master_tickets.longitude, master_tickets.cluster_radius, master_tickets.status, master_tickets.priority, master_tickets.urgency_score, master_tickets.sla_hours, master_tickets.sla_deadline, master_tickets.sla_breached, master_tickets.assigned_department_id, master_tickets.assigned_worker_id, master_tickets.created_at, master_tickets.assigned_at, master_tickets.started_at, master_tickets.resolved_at, master_tickets.verified_at, master_tickets.closed_at, master_tickets.before_image_url, master_tickets.after_image_url, master_tickets.image_similarity_score, master_tickets.verification_status, master_tickets.report_count, master_tickets.upvote_count 
+FROM master_tickets 
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+WHERE master_tickets.id = ?
+2026-03-26 00:39:45,683 INFO sqlalchemy.engine.Engine [generated in 0.00035s] (5,)
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+2026-03-26 00:39:45,686 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at 
+FROM citizen_reports 
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,686 INFO sqlalchemy.engine.Engine [generated in 0.00027s] (22,)
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+2026-03-26 00:39:45,687 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,687 INFO sqlalchemy.engine.Engine [cached since 3.829s ago] (5, 22)
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+2026-03-26 00:39:45,688 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,696 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+2026-03-26 00:39:45,696 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+WHERE citizen_reports.id = ?
+    raise exc
+2026-03-26 00:39:45,704 INFO sqlalchemy.engine.Engine [cached since 3.834s ago] (22,)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+2026-03-26 00:39:45,706 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3933 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+DEBUG: classification.category = 'Water'
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+2026-03-26 00:39:45,757 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,757 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:45,757 INFO sqlalchemy.engine.Engine [cached since 3.93s ago] (None, '9999999999', 'Test Citizen', 'Water leakage from main pipe', None, 'web', 'WATER', 1.0, 0.5, 28.7061, 77.10050000000001, 'Simulated Location', None, None, None)
+2026-03-26 00:39:45,758 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,764 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+2026-03-26 00:39:45,764 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,764 INFO sqlalchemy.engine.Engine [cached since 3.924s ago] (23,)
+2026-03-26 00:39:45,767 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:45,835 INFO sqlalchemy.engine.Engine [cached since 3.987s ago] ('WATER', 'CLOSED', 'VERIFIED')
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 45), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+2026-03-26 00:39:45,837 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+
+WHERE citizen_reports.master_ticket_id = ?
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+2026-03-26 00:39:45,837 INFO sqlalchemy.engine.Engine [cached since 3.985s ago] (2,)
+2026-03-26 00:39:45,838 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+2026-03-26 00:39:45,838 INFO sqlalchemy.engine.Engine [cached since 3.894s ago] (7.0, 5, 4, 2)
+2026-03-26 00:39:45,839 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+2026-03-26 00:39:45,839 INFO sqlalchemy.engine.Engine [cached since 3.981s ago] (2, 23)
+2026-03-26 00:39:45,839 INFO sqlalchemy.engine.Engine COMMIT
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+2026-03-26 00:39:45,843 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,844 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+FROM master_tickets 
+WHERE master_tickets.id = ?
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+2026-03-26 00:39:45,844 INFO sqlalchemy.engine.Engine [cached since 3.977s ago] (2,)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+2026-03-26 00:39:45,844 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,924 INFO sqlalchemy.engine.Engine [cached since 4.054s ago] (23,)
+2026-03-26 00:39:45,926 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3934 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+DEBUG: classification.category = 'Sanitation'
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+2026-03-26 00:39:45,975 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,975 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+2026-03-26 00:39:45,975 INFO sqlalchemy.engine.Engine [cached since 4.149s ago] (None, '9999999999', 'Test Citizen', 'Garbage pileup behind the market', None, 'web', 'SANITATION', 0.333, 0.5, 28.7021, 77.1045, 'Simulated Location', None, None, None)
+2026-03-26 00:39:45,977 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:45,982 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:45,983 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:45,983 INFO sqlalchemy.engine.Engine [cached since 4.141s ago] (24,)
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+2026-03-26 00:39:45,985 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:46,070 INFO sqlalchemy.engine.Engine [cached since 4.223s ago] ('SANITATION', 'CLOSED', 'VERIFIED')
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+2026-03-26 00:39:46,071 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:46,071 INFO sqlalchemy.engine.Engine [cached since 4.22s ago] (3,)
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 45), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+2026-03-26 00:39:46,073 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:46,073 INFO sqlalchemy.engine.Engine [cached since 4.129s ago] (7.5, 6, 5, 3)
+2026-03-26 00:39:46,074 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+2026-03-26 00:39:46,074 INFO sqlalchemy.engine.Engine [cached since 4.217s ago] (3, 24)
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+    self.scope, 
+self.receive, self.send
+2026-03-26 00:39:46,075 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:46,079 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:46,080 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+WHERE master_tickets.id = ?
+2026-03-26 00:39:46,119 INFO sqlalchemy.engine.Engine [cached since 4.252s ago] (3,)
+2026-03-26 00:39:46,121 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+FROM citizen_reports 
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:46,121 INFO sqlalchemy.engine.Engine [cached since 4.25s ago] (24,)
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+2026-03-26 00:39:46,122 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3935 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+DEBUG: classification.category = 'Electricity'
+2026-03-26 00:39:46,160 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:46,160 INFO sqlalchemy.engine.Engine INSERT INTO citizen_reports (citizen_id, citizen_phone, citizen_name, description, voice_transcript, source, category, confidence_score, sentiment_score, latitude, longitude, address_text, image_url, voice_url, master_ticket_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-03-26 00:39:46,160 INFO sqlalchemy.engine.Engine [cached since 4.333s ago] (None, '9999999999', 'Test Citizen', 'Street light not working for 3 days', None, 'web', 'ELECTRICITY', 0.667, 0.5, 28.7071, 77.10350000000001, 'Simulated Location', None, None, None)
+2026-03-26 00:39:46,161 INFO sqlalchemy.engine.Engine COMMIT
+2026-03-26 00:39:46,166 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+    raise exc
+2026-03-26 00:39:46,166 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id, citizen_reports.citizen_id, citizen_reports.citizen_phone, citizen_reports.citizen_name, citizen_reports.description, citizen_reports.voice_transcript, citizen_reports.source, citizen_reports.category, citizen_reports.confidence_score, citizen_reports.sentiment_score, citizen_reports.latitude, citizen_reports.longitude, citizen_reports.address_text, citizen_reports.image_url, citizen_reports.voice_url, citizen_reports.created_at, citizen_reports.master_ticket_id 
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:46,166 INFO sqlalchemy.engine.Engine [cached since 4.325s ago] (25,)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+2026-03-26 00:39:46,168 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+    raise e
+FROM master_tickets 
+WHERE master_tickets.category = ? AND (master_tickets.status NOT IN (?, ?))
+2026-03-26 00:39:46,191 INFO sqlalchemy.engine.Engine [cached since 4.343s ago] ('ELECTRICITY', 'CLOSED', 'VERIFIED')
+2026-03-26 00:39:46,192 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+FROM citizen_reports 
+WHERE citizen_reports.master_ticket_id = ?
+2026-03-26 00:39:46,192 INFO sqlalchemy.engine.Engine [cached since 4.341s ago] (4,)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+2026-03-26 00:39:46,193 INFO sqlalchemy.engine.Engine UPDATE master_tickets SET latitude=?, urgency_score=?, report_count=?, upvote_count=? WHERE master_tickets.id = ?
+2026-03-26 00:39:46,193 INFO sqlalchemy.engine.Engine [cached since 4.338s ago] (28.707100000000004, 7.5, 6, 5, 4)
+2026-03-26 00:39:46,196 INFO sqlalchemy.engine.Engine UPDATE citizen_reports SET master_ticket_id=? WHERE citizen_reports.id = ?
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+2026-03-26 00:39:46,196 INFO sqlalchemy.engine.Engine [cached since 4.338s ago] (4, 25)
+2026-03-26 00:39:46,197 INFO sqlalchemy.engine.Engine COMMIT
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+2026-03-26 00:39:46,202 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-26 00:39:46,202 INFO sqlalchemy.engine.Engine SELECT master_tickets.id AS master_tickets_id, master_tickets.ticket_number AS master_tickets_ticket_number, master_tickets.category AS master_tickets_category, master_tickets.sub_category AS master_tickets_sub_category, master_tickets.description AS master_tickets_description, master_tickets.latitude AS master_tickets_latitude, master_tickets.longitude AS master_tickets_longitude, master_tickets.cluster_radius AS master_tickets_cluster_radius, master_tickets.status AS master_tickets_status, master_tickets.priority AS master_tickets_priority, master_tickets.urgency_score AS master_tickets_urgency_score, master_tickets.sla_hours AS master_tickets_sla_hours, master_tickets.sla_deadline AS master_tickets_sla_deadline, master_tickets.sla_breached AS master_tickets_sla_breached, master_tickets.assigned_department_id AS master_tickets_assigned_department_id, master_tickets.assigned_worker_id AS master_tickets_assigned_worker_id, master_tickets.created_at AS master_tickets_created_at, master_tickets.assigned_at AS master_tickets_assigned_at, master_tickets.started_at AS master_tickets_started_at, master_tickets.resolved_at AS master_tickets_resolved_at, master_tickets.verified_at AS master_tickets_verified_at, master_tickets.closed_at AS master_tickets_closed_at, master_tickets.before_image_url AS master_tickets_before_image_url, master_tickets.after_image_url AS master_tickets_after_image_url, master_tickets.image_similarity_score AS master_tickets_image_similarity_score, master_tickets.verification_status AS master_tickets_verification_status, master_tickets.report_count AS master_tickets_report_count, master_tickets.upvote_count AS master_tickets_upvote_count 
+FROM master_tickets 
+WHERE master_tickets.id = ?
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 45), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
+2026-03-26 00:39:46,268 INFO sqlalchemy.engine.Engine [cached since 4.401s ago] (4,)
+2026-03-26 00:39:46,270 INFO sqlalchemy.engine.Engine SELECT citizen_reports.id AS citizen_reports_id, citizen_reports.citizen_id AS citizen_reports_citizen_id, citizen_reports.citizen_phone AS citizen_reports_citizen_phone, citizen_reports.citizen_name AS citizen_reports_citizen_name, citizen_reports.description AS citizen_reports_description, citizen_reports.voice_transcript AS citizen_reports_voice_transcript, citizen_reports.source AS citizen_reports_source, citizen_reports.category AS citizen_reports_category, citizen_reports.confidence_score AS citizen_reports_confidence_score, citizen_reports.sentiment_score AS citizen_reports_sentiment_score, citizen_reports.latitude AS citizen_reports_latitude, citizen_reports.longitude AS citizen_reports_longitude, citizen_reports.address_text AS citizen_reports_address_text, citizen_reports.image_url AS citizen_reports_image_url, citizen_reports.voice_url AS citizen_reports_voice_url, citizen_reports.created_at AS citizen_reports_created_at, citizen_reports.master_ticket_id AS citizen_reports_master_ticket_id 
+ERROR:    Exception in 
+ASGI application
+Traceback (most recent 
+call last):
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\protocols\http\httpto
+ols_impl.py", line 436, in 
+run_asgi
+FROM citizen_reports 
+WHERE citizen_reports.id = ?
+2026-03-26 00:39:46,270 INFO sqlalchemy.engine.Engine [cached since 4.4s ago] (25,)
+2026-03-26 00:39:46,271 INFO sqlalchemy.engine.Engine ROLLBACK
+    self.scope, 
+self.receive, self.send
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\uv
+icorn\middleware\proxy_head
+ers.py", line 78, in 
+__call__
+    return await 
+self.app(scope, receive, 
+send)
+INFO:     127.0.0.1:3936 - "POST /api/reports HTTP/1.1" 500 Internal Server Error
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\applications.py", 
+line 292, in __call__
+    await 
+super().__call__(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\applications.py", 
+line 122, in __call__
+    await self.middleware_s
+tack(scope, receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 184, in __call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\errors.p
+y", line 162, in __call__
+    await self.app(scope, 
+receive, _send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\cors.py"
+, line 83, in __call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 79, in 
+__call__
+    raise exc
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\middleware\exceptio
+ns.py", line 68, in 
+__call__
+    await self.app(scope, 
+receive, sender)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 20, in 
+__call__
+    raise e
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\middleware\asyncexits
+tack.py", line 17, in 
+__call__
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+718, in __call__
+    await 
+route.handle(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+276, in handle
+    await self.app(scope, 
+receive, send)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\st
+arlette\routing.py", line 
+66, in app
+    response = await 
+func(request)
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+300, in app
+    
+is_coroutine=is_coroutine,
+  File "C:\Users\DELL\AppDa
+ta\Local\Programs\Python\Py
+thon37\lib\site-packages\fa
+stapi\routing.py", line 
+155, in serialize_response
+    errors=_normalize_error
+s(errors), 
+body=response_content
+fastapi.exceptions.Response
+ValidationError: 1 
+validation errors:
+  {'type': 'string_type', 
+'loc': ('response', 
+'created_at'), 'msg': 
+'Input should be a valid 
+string', 'input': 
+datetime.datetime(2026, 3, 
+25, 19, 9, 46), 'url': 'htt
+ps://errors.pydantic.dev/2.
+5/v/string_type'}
+
